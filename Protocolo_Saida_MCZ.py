@@ -77,13 +77,15 @@ def definir_html(df_ref):
     
     return html
 
-def criar_output_html(nome_html, html):
+def criar_output_html(nome_html, html, hotel):
 
     with open(nome_html, "w", encoding="utf-8") as file:
 
         file.write(f'<p style="font-size:20px;">PROTOCOLO AVISA DE SAÍDA: ____/____/________</p>\n')
 
         file.write(f'<p style="font-size:20px;">ENTREGUE POR: _______________________________________</p>\n\n')
+
+        file.write(f'<p style="font-size:20px;">Hotel: {hotel}</p>\n\n')
         
         file.write(html)
 
@@ -93,7 +95,7 @@ def criar_output_html(nome_html, html):
 
         file.write(f'<p style="font-size:15px;">ASSINATURA</p>')
 
-def inserir_roteiros_html(nome_html, html):
+def inserir_roteiros_html(nome_html, html, hotel):
 
     with open(nome_html, "a", encoding="utf-8") as file:
         
@@ -113,6 +115,8 @@ def inserir_roteiros_html(nome_html, html):
         file.write(f'<div class="no-break">')
 
         file.write(f'<br><br><br><br><br><br>')
+
+        file.write(f'<p style="font-size:20px;">Hotel: {hotel}</p>\n\n')
         
         file.write(html)
 
@@ -124,7 +128,7 @@ def inserir_roteiros_html(nome_html, html):
 
         file.write(f'</div>')  # Fecha a div
 
-def inserir_roteiros_html_nova_pagina(nome_html, html):
+def inserir_roteiros_html_nova_pagina(nome_html, html, hotel):
 
     with open(nome_html, "a", encoding="utf-8") as file:
         
@@ -146,6 +150,8 @@ def inserir_roteiros_html_nova_pagina(nome_html, html):
         file.write(f'<p style="font-size:20px;">PROTOCOLO AVISA DE SAÍDA: ____/____/________</p>\n')
 
         file.write(f'<p style="font-size:20px;">ENTREGUE POR: _______________________________________</p>\n\n')
+
+        file.write(f'<p style="font-size:20px;">Hotel: {hotel}</p>\n\n')
         
         file.write(html)
 
@@ -198,7 +204,7 @@ if data_protocolos:
 
         df_out_servico = df_out[df_out['Servico']==servico].reset_index(drop=True)
     
-        df_out_colunas_filtradas = df_out_servico[['Reserva', 'Parceiro', 'Cliente', 'Data Horario Apresentacao', 'Est Origem']]
+        df_out_colunas_filtradas = df_out_servico[['Reserva', 'Parceiro', 'Cliente', 'Voo', 'Data Horario Apresentacao']]
 
         contador=0
 
@@ -216,11 +222,11 @@ if data_protocolos:
 
             if contador==0:
 
-                criar_output_html(nome_html, html)
+                criar_output_html(nome_html, html, hotel)
 
             else:
 
-                inserir_roteiros_html(nome_html, html)
+                inserir_roteiros_html(nome_html, html, hotel)
 
             contador+=1
 
@@ -239,7 +245,7 @@ if data_protocolos:
 
         df_out_servico = df_out[df_out['Servico']==servico].reset_index(drop=True)
     
-        df_out_colunas_filtradas = df_out_servico[['Reserva', 'Parceiro', 'Cliente', 'Data Horario Apresentacao', 'Est Origem']]
+        df_out_colunas_filtradas = df_out_servico[['Reserva', 'Parceiro', 'Cliente', 'Voo', 'Data Horario Apresentacao']]
 
         contador=0
 
@@ -257,11 +263,11 @@ if data_protocolos:
 
             if contador==0:
 
-                criar_output_html(nome_html, html)
+                criar_output_html(nome_html, html, hotel)
 
             else:
 
-                inserir_roteiros_html_nova_pagina(nome_html, html)
+                inserir_roteiros_html_nova_pagina(nome_html, html, hotel)
 
             contador+=1
 
