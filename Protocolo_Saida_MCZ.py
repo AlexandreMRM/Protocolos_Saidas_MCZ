@@ -214,7 +214,7 @@ if data_protocolos:
             df_out_colunas_filtradas['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
 
 
-        for hotel in df_out_colunas_filtradas['Est Origem'].unique().tolist():
+        for hotel in df_out[df_out['Servico']==servico]['Est Origem'].unique().tolist():
 
             df_ref = df_out_colunas_filtradas[df_out_colunas_filtradas['Est Origem']==hotel].reset_index(drop=True)
 
@@ -241,7 +241,7 @@ if data_protocolos:
             mime="text/html"
         )
 
-    else:
+    elif servico:
 
         df_out_servico = df_out[df_out['Servico']==servico].reset_index(drop=True)
     
@@ -255,7 +255,7 @@ if data_protocolos:
             df_out_colunas_filtradas['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
 
 
-        for hotel in df_out_colunas_filtradas['Est Origem'].unique().tolist():
+        for hotel in df_out[df_out['Servico']==servico]['Est Origem'].unique().tolist():
 
             df_ref = df_out_colunas_filtradas[df_out_colunas_filtradas['Est Origem']==hotel].reset_index(drop=True)
 
