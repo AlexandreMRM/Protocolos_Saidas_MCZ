@@ -203,22 +203,20 @@ if data_protocolos:
     if servico=='OUT - ORLA DE MACEIÓ (OU PRÓXIMOS) ':
 
         df_out_servico = df_out[df_out['Servico']==servico].reset_index(drop=True)
-    
-        df_out_colunas_filtradas = df_out_servico[['Reserva', 'Parceiro', 'Cliente', 'Voo', 'Data Horario Apresentacao']]
 
         contador=0
 
         nome_html = f"Protocolos {str(data_protocolos.strftime('%d-%m-%Y'))}.html"
 
-        df_out_colunas_filtradas['Data Horario Apresentacao'] = \
-            df_out_colunas_filtradas['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
+        df_out_servico['Data Horario Apresentacao'] = \
+            df_out_servico['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
 
 
-        for hotel in df_out[df_out['Servico']==servico]['Est Origem'].unique().tolist():
+        for hotel in df_out_servico['Est Origem'].unique().tolist():
 
-            df_ref = df_out_colunas_filtradas[df_out_colunas_filtradas['Est Origem']==hotel].reset_index(drop=True)
+            df_ref = df_out_servico[df_out_servico['Est Origem']==hotel].reset_index(drop=True)
 
-            html = definir_html(df_ref)
+            html = definir_html(df_ref[['Reserva', 'Parceiro', 'Cliente', 'Voo', 'Data Horario Apresentacao']])
 
             if contador==0:
 
@@ -244,22 +242,20 @@ if data_protocolos:
     elif servico:
 
         df_out_servico = df_out[df_out['Servico']==servico].reset_index(drop=True)
-    
-        df_out_colunas_filtradas = df_out_servico[['Reserva', 'Parceiro', 'Cliente', 'Voo', 'Data Horario Apresentacao']]
 
         contador=0
 
         nome_html = f"Protocolos {str(data_protocolos.strftime('%d-%m-%Y'))}.html"
 
-        df_out_colunas_filtradas['Data Horario Apresentacao'] = \
-            df_out_colunas_filtradas['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
+        df_out_servico['Data Horario Apresentacao'] = \
+            df_out_servico['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
 
 
-        for hotel in df_out[df_out['Servico']==servico]['Est Origem'].unique().tolist():
+        for hotel in df_out_servico['Est Origem'].unique().tolist():
 
-            df_ref = df_out_colunas_filtradas[df_out_colunas_filtradas['Est Origem']==hotel].reset_index(drop=True)
+            df_ref = df_out_servico[df_out_servico['Est Origem']==hotel].reset_index(drop=True)
 
-            html = definir_html(df_ref)
+            html = definir_html(df_ref[['Reserva', 'Parceiro', 'Cliente', 'Voo', 'Data Horario Apresentacao']])
 
             if contador==0:
 
