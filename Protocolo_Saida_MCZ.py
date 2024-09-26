@@ -167,8 +167,6 @@ if 'mapa_router' not in st.session_state:
 
     st.session_state.mapa_router = bd_phoenix('vw_router')
 
-    st.session_state.mapa_router = st.session_state.mapa_router[st.session_state.mapa_router['Voo']!='AD - 0001'].reset_index(drop=True)
-
 st.title('Protocolo de Saídas - Maceió')
 
 st.divider()
@@ -188,8 +186,6 @@ with row0[1]:
 if atualizar_dados:
 
     st.session_state.mapa_router = bd_phoenix('vw_router')
-
-    st.session_state.mapa_router = st.session_state.mapa_router[st.session_state.mapa_router['Voo']!='AD - 0001'].reset_index(drop=True)
 
 if data_protocolos:
 
