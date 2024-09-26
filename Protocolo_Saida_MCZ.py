@@ -197,6 +197,8 @@ if data_protocolos:
                                           (st.session_state.mapa_router['Data Execucao']==data_protocolos) & 
                                           (st.session_state.mapa_router['Status do Servico']!='CANCELADO')]\
                                             .sort_values(by='Est Origem').reset_index(drop=True)
+
+    df_out = df_out[df_out['Voo']!='AD - 0001'].reset_index(drop=True)
     
     df_out = df_out[~df_out['Observacao'].str.upper().str.contains('CLD', na=False)]
 
