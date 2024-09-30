@@ -210,6 +210,8 @@ if data_protocolos:
 
             hotel = st.selectbox('Hotel', df_out_servico['Est Origem'].unique().tolist(), index=None)
 
+            hotel
+
         if hotel is not None:
 
             df_out_servico = df_out_servico[df_out_servico['Est Origem']==hotel].reset_index(drop=True)
