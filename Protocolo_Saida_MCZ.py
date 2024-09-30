@@ -212,16 +212,18 @@ if data_protocolos:
 
         if hotel is not None:
 
-            hotel
-
             df_out_servico = df_out_servico[df_out_servico['Est Origem']==hotel].reset_index(drop=True)
 
         contador=0
 
         nome_html = f"Protocolos {str(data_protocolos.strftime('%d-%m-%Y'))}.html"
 
-        df_out_servico['Data Horario Apresentacao'] = \
-            df_out_servico['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
+        df_out_servico['Data Horario Apresentacao'] = df_out_servico['Data Horario Apresentacao'].apply(
+            lambda x: x.strftime('%d/%m/%Y %H:%M:%S') if pd.notnull(x) and isinstance(x, pd.Timestamp) else x
+        )
+
+        # df_out_servico['Data Horario Apresentacao'] = \
+        #     df_out_servico['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
 
 
         for hotel in df_out_servico['Est Origem'].unique().tolist():
