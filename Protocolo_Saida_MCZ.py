@@ -206,6 +206,14 @@ if data_protocolos:
 
         df_out_servico = df_out[df_out['Servico']==servico].reset_index(drop=True)
 
+        with row0[0]:
+
+            hotel = st.selectbox('Hotel', df_out_servico['Est Origem'].unique().tolist(), index=None)
+
+        if hotel is not None:
+
+            df_out_servico = df_out_servico[df_out_servico['Est Origem']==hotel].reset_index(drop=True)
+
         contador=0
 
         nome_html = f"Protocolos {str(data_protocolos.strftime('%d-%m-%Y'))}.html"
@@ -244,6 +252,14 @@ if data_protocolos:
     elif servico:
 
         df_out_servico = df_out[df_out['Servico']==servico].reset_index(drop=True)
+
+        with row0[0]:
+
+            hotel = st.selectbox('Hotel', df_out_servico['Est Origem'].unique().tolist(), index=None)
+
+        if hotel is not None:
+
+            df_out_servico = df_out_servico[df_out_servico['Est Origem']==hotel].reset_index(drop=True)
 
         contador=0
 
