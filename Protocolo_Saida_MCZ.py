@@ -191,8 +191,6 @@ if atualizar_dados:
 
     st.session_state.df_escalas = bd_phoenix('vw_payment_guide')
 
-st.session_state.df_escalas
-
 if data_protocolos:
 
     df_out = st.session_state.mapa_router[(st.session_state.mapa_router['Tipo de Servico']=='OUT') & 
