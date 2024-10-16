@@ -167,6 +167,8 @@ if 'mapa_router' not in st.session_state:
 
     st.session_state.mapa_router = bd_phoenix('vw_router')
 
+    st.session_state.df_escalas = bd_phoenix('vw_payment_guide')
+
 st.title('Protocolo de Saídas - Maceió')
 
 st.divider()
@@ -187,16 +189,26 @@ if atualizar_dados:
 
     st.session_state.mapa_router = bd_phoenix('vw_router')
 
+    st.session_state.df_escalas = bd_phoenix('vw_payment_guide')
+
 if data_protocolos:
 
     df_out = st.session_state.mapa_router[(st.session_state.mapa_router['Tipo de Servico']=='OUT') & 
                                           (st.session_state.mapa_router['Data Execucao']==data_protocolos) & 
                                           (st.session_state.mapa_router['Status do Servico']!='CANCELADO')]\
                                             .sort_values(by='Est Origem').reset_index(drop=True)
+    
+    df_escalas = st.session_state.df_escalas[(~pd.isna(st.session_state.df_escalas['Escala'])) & (st.session_state.df_escalas['Data Execucao']==data_protocolos) &
+                                             (pd.isna(st.session_state.df_escalas['Veiculo'])) & (pd.isna(st.session_state.df_escalas['Motorista'])) & 
+                                             (pd.isna(st.session_state.df_escalas['Guia']))][['Reserva', 'Escala']].drop_duplicates().reset_index(drop=True)
 
     df_out = df_out[df_out['Voo']!='AD - 0001'].reset_index(drop=True)
     
     df_out = df_out[~df_out['Observacao'].str.upper().str.contains('CLD', na=False)]
+
+    df_out = pd.merge(df_out, df_escalas, on='Reserva', how='left')
+
+    df_out = df_out[pd.isna(df_out['Escala'])].reset_index(drop=True)
 
     with row0[0]:
 
@@ -221,10 +233,6 @@ if data_protocolos:
         df_out_servico['Data Horario Apresentacao'] = df_out_servico['Data Horario Apresentacao'].apply(
             lambda x: x.strftime('%d/%m/%Y %H:%M:%S') if pd.notnull(x) and isinstance(x, pd.Timestamp) else x
         )
-
-        # df_out_servico['Data Horario Apresentacao'] = \
-        #     df_out_servico['Data Horario Apresentacao'].apply(lambda x: x.strftime('%d/%m/%Y %H:%M:%S'))
-
 
         for hotel in df_out_servico['Est Origem'].unique().tolist():
 
@@ -302,8 +310,3 @@ if data_protocolos:
             file_name=nome_html,
             mime="text/html"
         )
-
-
-
-
-
