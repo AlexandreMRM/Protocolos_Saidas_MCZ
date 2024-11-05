@@ -24,4 +24,4 @@ COPY . .
 
 EXPOSE 8086
 
-CMD ["streamlit", "run", "app.py", "--server.port=8086", "--server.enableCORS=false"]
+CMD ["streamlit", "run", "Protocolo_Saida_MCZ.py", "--server.port=8086"]
